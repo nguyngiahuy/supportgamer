@@ -11,13 +11,46 @@
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family:'Poppins',sans-serif;
-  background:#02050c;
+  font-family:'Orbitron',sans-serif;
+  background:#050816;
   color:#fff;
   overflow:hidden;
+  position:relative;
 }
 
-/* ===== PARTICLE BACKGROUND ===== */
+/* ===== CYBERPUNK BACKGROUND GLOW ===== */
+body::before{
+  content:"";
+  position:fixed;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(0,255,255,0.15), transparent 70%);
+  top:-200px;
+  left:-200px;
+  filter:blur(100px);
+  animation:moveGlow 12s infinite alternate ease-in-out;
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
+  bottom:-200px;
+  right:-200px;
+  filter:blur(100px);
+  animation:moveGlow 15s infinite alternate-reverse ease-in-out;
+  z-index:-2;
+}
+
+@keyframes moveGlow{
+  from{ transform:translate(0,0); }
+  to{ transform:translate(100px,60px); }
+}
+
+/* ===== PARTICLES ===== */
 canvas{
   position:fixed;
   top:0;
@@ -25,113 +58,128 @@ canvas{
   z-index:-1;
 }
 
-/* ===== CARD ===== */
+/* ===== CARD GLASS ===== */
 .card{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  width:420px;
-  padding:50px 40px;
-  border-radius:25px;
-  background:#0b1423;
+  width:460px;
+  padding:60px 40px;
+  border-radius:30px;
+  backdrop-filter:blur(25px);
+  background:rgba(15,20,40,0.6);
+  border:1px solid rgba(255,255,255,0.1);
   text-align:center;
-  box-shadow:0 0 60px #00ffc855;
+  box-shadow:0 0 60px rgba(0,255,255,0.2);
+  transition:0.4s;
 }
 
-/* ===== GAMEPAD ===== */
-.gamepad{
-  font-size:50px;
+.card:hover{
+  transform:translate(-50%,-50%) scale(1.02);
+}
+
+/* ===== BRAND ===== */
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
   margin-bottom:20px;
-  animation:glow 2s infinite alternate;
 }
 
-@keyframes glow{
-  from{ text-shadow:0 0 10px #00ffc8; }
-  to{ text-shadow:0 0 25px #00ffc8; }
+.brand img{
+  width:95px;
+  filter:drop-shadow(0 0 20px #00f7ff);
+  animation:logoGlow 2s infinite alternate;
 }
 
-/* ===== GLITCH TEXT ===== */
-.glitch{
-  font-family:'Orbitron',sans-serif;
-  font-size:32px;
-  color:#00ffc8;
+@keyframes logoGlow{
+  from{filter:drop-shadow(0 0 10px #00f7ff);}
+  to{filter:drop-shadow(0 0 35px #a855f7);}
+}
+
+.brand-text{
   position:relative;
-  margin-bottom:5px;
-}
-
-.glitch::before,
-.glitch::after{
-  content:"SupportGamer";
-  position:absolute;
-  left:0;
-  width:100%;
+  font-size:34px;
+  font-weight:800;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,#00f7ff,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
   overflow:hidden;
 }
 
-.glitch::before{
-  animation:glitchTop 2s infinite linear alternate-reverse;
-  color:#ff00ff;
+.brand-text::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-150%;
+  width:50%;
+  height:100%;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.8),
+    transparent
+  );
+  transform:skewX(-25deg);
+  animation:shine 3s infinite;
 }
 
-.glitch::after{
-  animation:glitchBottom 2s infinite linear alternate-reverse;
-  color:#00ffff;
-}
-
-@keyframes glitchTop{
-  0%{clip-path:polygon(0 0,100% 0,100% 33%,0 33%); transform:translate(2px,-2px);}
-  100%{clip-path:polygon(0 0,100% 0,100% 33%,0 33%); transform:translate(-2px,2px);}
-}
-
-@keyframes glitchBottom{
-  0%{clip-path:polygon(0 66%,100% 66%,100% 100%,0 100%); transform:translate(-2px,2px);}
-  100%{clip-path:polygon(0 66%,100% 66%,100% 100%,0 100%); transform:translate(2px,-2px);}
+@keyframes shine{
+  0%{left:-150%;}
+  100%{left:200%;}
 }
 
 .sub{
   font-size:13px;
-  color:#00ffc8;
+  color:#00f7ff;
   margin-bottom:20px;
 }
 
 .desc{
   font-size:14px;
-  opacity:0.7;
-  margin-bottom:25px;
+  opacity:0.75;
+  margin-bottom:30px;
   line-height:1.6;
 }
 
-/* ===== BUTTON ===== */
+/* ===== BUTTON PRO ===== */
 .download-btn{
-  padding:14px 35px;
+  padding:15px 40px;
   border:none;
   border-radius:50px;
-  background:linear-gradient(45deg,#00ffc8,#00aaff);
+  background:linear-gradient(45deg,#00f7ff,#a855f7);
   color:#000;
-  font-weight:600;
+  font-weight:700;
   cursor:pointer;
   font-size:14px;
-  box-shadow:0 0 25px #00ffc8;
-  transition:0.2s;
+  box-shadow:0 0 25px #00f7ff;
+  transition:0.3s;
+}
+
+.download-btn:hover{
+  box-shadow:0 0 40px #a855f7;
+  transform:scale(1.05);
 }
 
 .download-btn:active{
   transform:scale(0.9);
 }
 
-/* ===== LOADING ===== */
+/* ===== LOADER ===== */
 .loader{
   display:none;
-  margin-top:20px;
+  margin-top:25px;
 }
 
 .spinner{
-  border:4px solid #111;
-  border-top:4px solid #00ffc8;
+  border:4px solid rgba(255,255,255,0.1);
+  border-top:4px solid #00f7ff;
   border-radius:50%;
-  width:30px;
-  height:30px;
+  width:35px;
+  height:35px;
   animation:spin 1s linear infinite;
   margin:auto;
 }
@@ -146,26 +194,25 @@ canvas{
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  background:#0b1423;
-  padding:40px;
-  border-radius:20px;
-  box-shadow:0 0 40px #00ffc8;
+  background:rgba(15,20,40,0.95);
+  padding:45px;
+  border-radius:25px;
+  box-shadow:0 0 50px #00f7ff;
   display:none;
   text-align:center;
 }
 
 .popup h2{
-  font-family:'Orbitron';
-  color:#00ffc8;
   margin-bottom:15px;
+  color:#00f7ff;
 }
 
 .popup button{
   margin-top:20px;
-  padding:10px 25px;
+  padding:12px 30px;
   border:none;
   border-radius:30px;
-  background:#00ffc8;
+  background:linear-gradient(45deg,#00f7ff,#a855f7);
   color:#000;
   cursor:pointer;
 }
@@ -176,8 +223,12 @@ canvas{
 <canvas id="particles"></canvas>
 
 <div class="card">
-  <div class="gamepad">🎮</div>
-  <div class="glitch">SupportGamer</div>
+
+  <div class="brand">
+    <img src="sg.png" alt="SG Logo">
+    <div class="brand-text">SupportGamer</div>
+  </div>
+
   <div class="sub">✓ PROFILE ĐÃ XÁC MINH</div>
 
   <div class="desc">
@@ -204,26 +255,24 @@ canvas{
 </div>
 
 <script>
-/* ===== PARTICLES ===== */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particlesArray = [];
-
-for(let i=0;i<80;i++){
+for(let i=0;i<100;i++){
   particlesArray.push({
     x:Math.random()*canvas.width,
     y:Math.random()*canvas.height,
     size:Math.random()*2+1,
-    speed:Math.random()*1+0.2
+    speed:Math.random()*1+0.3
   });
 }
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="#00ffc8";
+  ctx.fillStyle="#00f7ff";
   particlesArray.forEach(p=>{
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
@@ -241,9 +290,7 @@ function startDownload(){
   setTimeout(()=>{
     document.getElementById("loader").style.display="none";
     document.getElementById("popup").style.display="block";
-
-    // 👉 LINK FILE TẢI
-   window.location.href = "https://nguyngiahuy.github.io/supportgamer/SupportGamer.mobileconfig";
+    window.location.href="https://nguyngiahuy.github.io/supportgamer/SupportGamer.mobileconfig";
   },2000);
 }
 
