@@ -18,36 +18,27 @@ body{
   position:relative;
 }
 
-/* ===== CYBERPUNK BACKGROUND GLOW ===== */
-body::before{
-  content:"";
-  position:fixed;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle, rgba(0,255,255,0.15), transparent 70%);
-  top:-200px;
-  left:-200px;
-  filter:blur(100px);
-  animation:moveGlow 12s infinite alternate ease-in-out;
-  z-index:-2;
-}
-
+/* ===== BACKGROUND GLOW ===== */
+body::before,
 body::after{
   content:"";
   position:fixed;
   width:600px;
   height:600px;
-  background:radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
-  bottom:-200px;
-  right:-200px;
-  filter:blur(100px);
-  animation:moveGlow 15s infinite alternate-reverse ease-in-out;
+  filter:blur(120px);
   z-index:-2;
 }
 
-@keyframes moveGlow{
-  from{ transform:translate(0,0); }
-  to{ transform:translate(100px,60px); }
+body::before{
+  background:radial-gradient(circle,#00f7ff33,transparent 70%);
+  top:-200px;
+  left:-200px;
+}
+
+body::after{
+  background:radial-gradient(circle,#a855f733,transparent 70%);
+  bottom:-200px;
+  right:-200px;
 }
 
 /* ===== PARTICLES ===== */
@@ -58,7 +49,7 @@ canvas{
   z-index:-1;
 }
 
-/* ===== CARD GLASS ===== */
+/* ===== CARD ===== */
 .card{
   position:absolute;
   top:50%;
@@ -68,15 +59,10 @@ canvas{
   padding:60px 40px;
   border-radius:30px;
   backdrop-filter:blur(25px);
-  background:rgba(15,20,40,0.6);
+  background:rgba(15,20,40,0.65);
   border:1px solid rgba(255,255,255,0.1);
   text-align:center;
-  box-shadow:0 0 60px rgba(0,255,255,0.2);
-  transition:0.4s;
-}
-
-.card:hover{
-  transform:translate(-50%,-50%) scale(1.02);
+  box-shadow:0 0 60px rgba(0,255,255,0.25);
 }
 
 /* ===== BRAND ===== */
@@ -84,52 +70,24 @@ canvas{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:20px;
+  gap:18px;
   margin-bottom:20px;
 }
 
 .brand img{
-  width:95px;
-  filter:drop-shadow(0 0 20px #00f7ff);
-  animation:logoGlow 2s infinite alternate;
-}
-
-@keyframes logoGlow{
-  from{filter:drop-shadow(0 0 10px #00f7ff);}
-  to{filter:drop-shadow(0 0 35px #a855f7);}
+  width:85px;
+  height:auto;
+  filter:drop-shadow(0 0 25px #00f7ff);
 }
 
 .brand-text{
-  position:relative;
-  font-size:34px;
+  font-size:32px;
   font-weight:800;
   letter-spacing:2px;
   background:linear-gradient(90deg,#00f7ff,#a855f7);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  overflow:hidden;
-}
-
-.brand-text::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left:-150%;
-  width:50%;
-  height:100%;
-  background:linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.8),
-    transparent
-  );
-  transform:skewX(-25deg);
-  animation:shine 3s infinite;
-}
-
-@keyframes shine{
-  0%{left:-150%;}
-  100%{left:200%;}
+  white-space:nowrap;
 }
 
 .sub{
@@ -140,32 +98,28 @@ canvas{
 
 .desc{
   font-size:14px;
-  opacity:0.75;
+  opacity:0.8;
   margin-bottom:30px;
   line-height:1.6;
 }
 
-/* ===== BUTTON PRO ===== */
+/* ===== BUTTON ===== */
 .download-btn{
+  display:inline-block;
   padding:15px 40px;
-  border:none;
   border-radius:50px;
   background:linear-gradient(45deg,#00f7ff,#a855f7);
   color:#000;
   font-weight:700;
-  cursor:pointer;
   font-size:14px;
+  text-decoration:none;
   box-shadow:0 0 25px #00f7ff;
   transition:0.3s;
 }
 
 .download-btn:hover{
-  box-shadow:0 0 40px #a855f7;
   transform:scale(1.05);
-}
-
-.download-btn:active{
-  transform:scale(0.9);
+  box-shadow:0 0 45px #a855f7;
 }
 
 /* ===== LOADER ===== */
@@ -195,8 +149,8 @@ canvas{
   left:50%;
   transform:translate(-50%,-50%);
   background:rgba(15,20,40,0.95);
-  padding:45px;
-  border-radius:25px;
+  padding:40px;
+  border-radius:20px;
   box-shadow:0 0 50px #00f7ff;
   display:none;
   text-align:center;
@@ -209,7 +163,7 @@ canvas{
 
 .popup button{
   margin-top:20px;
-  padding:12px 30px;
+  padding:10px 25px;
   border:none;
   border-radius:30px;
   background:linear-gradient(45deg,#00f7ff,#a855f7);
@@ -225,7 +179,7 @@ canvas{
 <div class="card">
 
   <div class="brand">
-    <img src="sg.png" alt="SG Logo">
+    <img src="./sg.png" alt="SupportGamer Logo">
     <div class="brand-text">SupportGamer</div>
   </div>
 
@@ -239,9 +193,9 @@ canvas{
     • Tương thích iOS 14+
   </div>
 
-<a href="SupportGamer.mobileconfig" download class="download-btn">
+  <a href="SupportGamer.mobileconfig" class="download-btn" onclick="startDownload(event)">
     ↓ TẢI CẤU HÌNH
-</a>
+  </a>
 
   <div class="loader" id="loader">
     <div class="spinner"></div>
@@ -255,18 +209,24 @@ canvas{
 </div>
 
 <script>
+/* PARTICLES */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 let particlesArray = [];
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
   particlesArray.push({
     x:Math.random()*canvas.width,
     y:Math.random()*canvas.height,
     size:Math.random()*2+1,
-    speed:Math.random()*1+0.3
+    speed:Math.random()*0.8+0.2
   });
 }
 
@@ -284,20 +244,25 @@ function animate(){
 }
 animate();
 
-function startDownload(){
+/* DOWNLOAD */
+function startDownload(e){
+  e.preventDefault();
   document.getElementById("loader").style.display="block";
 
   setTimeout(()=>{
     document.getElementById("loader").style.display="none";
     document.getElementById("popup").style.display="block";
-    window.location.href="https://nguyngiahuy.github.io/supportgamer/SupportGamer.mobileconfig";
-  },2000);
+    window.location.href="SupportGamer.mobileconfig";
+  },1500);
 }
 
 function closePopup(){
   document.getElementById("popup").style.display="none";
 }
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
