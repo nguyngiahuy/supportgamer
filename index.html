@@ -18,7 +18,16 @@ body{
   position:relative;
 }
 
-/* ===== SCANLINE EFFECT ===== */
+/* ===== INTRO ANIMATION ===== */
+body{
+  animation:introFade 1.5s ease forwards;
+  opacity:0;
+}
+@keyframes introFade{
+  to{opacity:1;}
+}
+
+/* ===== SCANLINE ===== */
 body::after{
   content:"";
   position:fixed;
@@ -48,7 +57,6 @@ body::before{
   animation:floatGlow 10s infinite alternate ease-in-out;
   z-index:-2;
 }
-
 @keyframes floatGlow{
   from{transform:translate(0,0)}
   to{transform:translate(150px,100px)}
@@ -67,79 +75,79 @@ canvas{
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%);
-  width:500px;
+  transform:translate(-50%,-50%) scale(0.8);
+  width:520px;
   padding:80px 60px;
   border-radius:40px;
   backdrop-filter:blur(35px);
   background:rgba(15,20,40,0.6);
   border:1px solid rgba(255,255,255,0.08);
   text-align:center;
-  box-shadow:0 0 100px rgba(0,255,255,0.25);
+  box-shadow:0 0 120px rgba(0,255,255,0.25);
   overflow:hidden;
+  animation:cardPop 1.2s ease forwards;
 }
 
-/* ===== NEON BORDER ANIMATION ===== */
-.card::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:40px;
-  padding:2px;
-  background:linear-gradient(90deg,#00f7ff,#a855f7,#00f7ff);
-  background-size:300% 300%;
-  animation:borderMove 6s linear infinite;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-          mask-composite:exclude;
+@keyframes cardPop{
+  to{transform:translate(-50%,-50%) scale(1);}
 }
 
-@keyframes borderMove{
-  0%{background-position:0% 50%}
-  100%{background-position:100% 50%}
+/* ===== ESPORTS FRAME ===== */
+.frame{
+  border:2px solid #00f7ff;
+  padding:25px;
+  border-radius:20px;
+  position:relative;
+  margin-bottom:30px;
+  box-shadow:0 0 30px #00f7ff inset;
 }
 
-/* ===== GLITCH TITLE ===== */
+/* ===== BRAND + ICON ===== */
 .brand{
   font-size:44px;
   font-weight:900;
   letter-spacing:4px;
   position:relative;
-  margin-bottom:30px;
-  color:#00f7ff;
+  display:inline-block;
+  color:#fff;
 }
 
-.brand::before,
-.brand::after{
-  content:"Support Game";
-  position:absolute;
-  left:0;
-  width:100%;
-  overflow:hidden;
-}
-
+/* icon hai bên */
 .brand::before{
-  color:#ff00ff;
-  animation:glitchTop 2s infinite linear alternate-reverse;
+  content:"✦";
+  position:absolute;
+  left:-40px;
+  color:#a855f7;
+  animation:pulse 1.5s infinite;
 }
 
 .brand::after{
-  color:#00ffff;
-  animation:glitchBottom 1.5s infinite linear alternate-reverse;
+  content:"✦";
+  position:absolute;
+  right:-40px;
+  color:#00f7ff;
+  animation:pulse 1.5s infinite reverse;
 }
 
-@keyframes glitchTop{
-  0%{clip-path:inset(0 0 80% 0);transform:translate(-2px,-2px)}
-  50%{clip-path:inset(10% 0 60% 0);transform:translate(2px,2px)}
-  100%{clip-path:inset(0 0 85% 0);transform:translate(-1px,1px)}
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
 }
 
-@keyframes glitchBottom{
-  0%{clip-path:inset(80% 0 0 0);transform:translate(2px,2px)}
-  50%{clip-path:inset(60% 0 10% 0);transform:translate(-2px,-1px)}
-  100%{clip-path:inset(85% 0 0 0);transform:translate(1px,-1px)}
+/* ===== VALORANT STYLE GLITCH ===== */
+.brand span{
+  position:relative;
+  display:inline-block;
+  animation:glitch 2s infinite;
+}
+
+@keyframes glitch{
+  0%{text-shadow:2px 0 #ff0040,-2px 0 #00f7ff;}
+  20%{text-shadow:-2px -2px #ff0040,2px 2px #00f7ff;}
+  40%{text-shadow:2px 2px #ff0040,-2px -2px #00f7ff;}
+  60%{text-shadow:-2px 2px #ff0040,2px -2px #00f7ff;}
+  80%{text-shadow:2px -2px #ff0040,-2px 2px #00f7ff;}
+  100%{text-shadow:2px 0 #ff0040,-2px 0 #00f7ff;}
 }
 
 /* ===== SUB ===== */
@@ -174,10 +182,6 @@ canvas{
   transform:scale(1.1);
   box-shadow:0 0 80px #a855f7;
 }
-
-.download-btn:active{
-  transform:scale(0.9);
-}
 </style>
 </head>
 <body>
@@ -186,7 +190,9 @@ canvas{
 
 <div class="card">
 
-  <div class="brand">Support Game</div>
+  <div class="frame">
+    <div class="brand"><span>Support Game</span></div>
+  </div>
 
   <div class="sub">✓ PROFILE ĐÃ XÁC MINH</div>
 
@@ -199,7 +205,7 @@ canvas{
   </div>
 
   <a href="SupportGamer.mobileconfig" class="download-btn">
-    DOWNLOAD NOW  ↓
+    DOWNLOAD NOW ↓
   </a>
 
 </div>
@@ -216,7 +222,7 @@ resize();
 window.addEventListener("resize",resize);
 
 let particles=[];
-for(let i=0;i<150;i++){
+for(let i=0;i<180;i++){
   particles.push({
     x:Math.random()*canvas.width,
     y:Math.random()*canvas.height,
