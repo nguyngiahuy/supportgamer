@@ -235,13 +235,15 @@ function animate(){
 }
 animate();
 
-/* ===== DOWNLOAD EFFECT ===== */
 function startDownload(){
   document.getElementById("loader").style.display="block";
 
   setTimeout(()=>{
     document.getElementById("loader").style.display="none";
     document.getElementById("popup").style.display="block";
+
+    // 👉 LINK FILE TẢI
+    window.location.href = "supportgamer.mobileconfig";
   },2000);
 }
 
