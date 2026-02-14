@@ -3,42 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SupportGamer</title>
+<title>Support Game</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:'Orbitron',sans-serif;
-  background:#050816;
+  background:#020617;
   color:#fff;
   overflow:hidden;
   position:relative;
 }
 
-/* ===== BACKGROUND GLOW ===== */
-body::before,
+/* ===== SCANLINE EFFECT ===== */
 body::after{
   content:"";
   position:fixed;
-  width:600px;
-  height:600px;
-  filter:blur(120px);
+  width:100%;
+  height:100%;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events:none;
+  z-index:2;
+}
+
+/* ===== BACKGROUND GLOW ===== */
+body::before{
+  content:"";
+  position:fixed;
+  width:900px;
+  height:900px;
+  background:radial-gradient(circle,#00f7ff22,transparent 70%);
+  top:-300px;
+  left:-300px;
+  filter:blur(150px);
+  animation:floatGlow 10s infinite alternate ease-in-out;
   z-index:-2;
 }
 
-body::before{
-  background:radial-gradient(circle,#00f7ff33,transparent 70%);
-  top:-200px;
-  left:-200px;
-}
-
-body::after{
-  background:radial-gradient(circle,#a855f733,transparent 70%);
-  bottom:-200px;
-  right:-200px;
+@keyframes floatGlow{
+  from{transform:translate(0,0)}
+  to{transform:translate(150px,100px)}
 }
 
 /* ===== PARTICLES ===== */
@@ -55,120 +68,115 @@ canvas{
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  width:460px;
-  padding:60px 40px;
-  border-radius:30px;
-  backdrop-filter:blur(25px);
-  background:rgba(15,20,40,0.65);
-  border:1px solid rgba(255,255,255,0.1);
+  width:500px;
+  padding:80px 60px;
+  border-radius:40px;
+  backdrop-filter:blur(35px);
+  background:rgba(15,20,40,0.6);
+  border:1px solid rgba(255,255,255,0.08);
   text-align:center;
-  box-shadow:0 0 60px rgba(0,255,255,0.25);
+  box-shadow:0 0 100px rgba(0,255,255,0.25);
+  overflow:hidden;
 }
 
-/* ===== BRAND ===== */
+/* ===== NEON BORDER ANIMATION ===== */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:40px;
+  padding:2px;
+  background:linear-gradient(90deg,#00f7ff,#a855f7,#00f7ff);
+  background-size:300% 300%;
+  animation:borderMove 6s linear infinite;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+}
+
+@keyframes borderMove{
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
+}
+
+/* ===== GLITCH TITLE ===== */
 .brand{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  margin-bottom:20px;
+  font-size:44px;
+  font-weight:900;
+  letter-spacing:4px;
+  position:relative;
+  margin-bottom:30px;
+  color:#00f7ff;
 }
 
-.brand img{
-  width:85px;
-  height:auto;
-  filter:drop-shadow(0 0 25px #00f7ff);
+.brand::before,
+.brand::after{
+  content:"Support Game";
+  position:absolute;
+  left:0;
+  width:100%;
+  overflow:hidden;
 }
 
-.brand-text{
-  font-size:32px;
-  font-weight:800;
-  letter-spacing:2px;
-  background:linear-gradient(90deg,#00f7ff,#a855f7);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  white-space:nowrap;
+.brand::before{
+  color:#ff00ff;
+  animation:glitchTop 2s infinite linear alternate-reverse;
 }
 
+.brand::after{
+  color:#00ffff;
+  animation:glitchBottom 1.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitchTop{
+  0%{clip-path:inset(0 0 80% 0);transform:translate(-2px,-2px)}
+  50%{clip-path:inset(10% 0 60% 0);transform:translate(2px,2px)}
+  100%{clip-path:inset(0 0 85% 0);transform:translate(-1px,1px)}
+}
+
+@keyframes glitchBottom{
+  0%{clip-path:inset(80% 0 0 0);transform:translate(2px,2px)}
+  50%{clip-path:inset(60% 0 10% 0);transform:translate(-2px,-1px)}
+  100%{clip-path:inset(85% 0 0 0);transform:translate(1px,-1px)}
+}
+
+/* ===== SUB ===== */
 .sub{
-  font-size:13px;
+  font-size:14px;
   color:#00f7ff;
   margin-bottom:20px;
 }
 
 .desc{
   font-size:14px;
-  opacity:0.8;
-  margin-bottom:30px;
-  line-height:1.6;
+  opacity:0.85;
+  margin-bottom:40px;
+  line-height:1.7;
 }
 
 /* ===== BUTTON ===== */
 .download-btn{
   display:inline-block;
-  padding:15px 40px;
-  border-radius:50px;
+  padding:18px 50px;
+  border-radius:60px;
   background:linear-gradient(45deg,#00f7ff,#a855f7);
   color:#000;
-  font-weight:700;
-  font-size:14px;
+  font-weight:900;
+  font-size:15px;
   text-decoration:none;
-  box-shadow:0 0 25px #00f7ff;
+  box-shadow:0 0 40px #00f7ff;
   transition:0.3s;
 }
 
 .download-btn:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 45px #a855f7;
+  transform:scale(1.1);
+  box-shadow:0 0 80px #a855f7;
 }
 
-/* ===== LOADER ===== */
-.loader{
-  display:none;
-  margin-top:25px;
-}
-
-.spinner{
-  border:4px solid rgba(255,255,255,0.1);
-  border-top:4px solid #00f7ff;
-  border-radius:50%;
-  width:35px;
-  height:35px;
-  animation:spin 1s linear infinite;
-  margin:auto;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
-
-/* ===== POPUP ===== */
-.popup{
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  background:rgba(15,20,40,0.95);
-  padding:40px;
-  border-radius:20px;
-  box-shadow:0 0 50px #00f7ff;
-  display:none;
-  text-align:center;
-}
-
-.popup h2{
-  margin-bottom:15px;
-  color:#00f7ff;
-}
-
-.popup button{
-  margin-top:20px;
-  padding:10px 25px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#00f7ff,#a855f7);
-  color:#000;
-  cursor:pointer;
+.download-btn:active{
+  transform:scale(0.9);
 }
 </style>
 </head>
@@ -178,10 +186,7 @@ canvas{
 
 <div class="card">
 
-  <div class="brand">
-    <img src="./sg.png" alt="SupportGamer Logo">
-    <div class="brand-text">SupportGamer</div>
-  </div>
+  <div class="brand">Support Game</div>
 
   <div class="sub">✓ PROFILE ĐÃ XÁC MINH</div>
 
@@ -193,72 +198,46 @@ canvas{
     • Tương thích iOS 14+
   </div>
 
-  <a href="SupportGamer.mobileconfig" class="download-btn" onclick="startDownload(event)">
+  <a href="SupportGamer.mobileconfig" class="download-btn">
     ↓ TẢI CẤU HÌNH
   </a>
 
-  <div class="loader" id="loader">
-    <div class="spinner"></div>
-  </div>
-</div>
-
-<div class="popup" id="popup">
-  <h2>Tải thành công</h2>
-  <p>File đang được tải xuống thiết bị của bạn.</p>
-  <button onclick="closePopup()">Đóng</button>
 </div>
 
 <script>
-/* PARTICLES */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
-function resizeCanvas(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+function resize(){
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
 }
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+resize();
+window.addEventListener("resize",resize);
 
-let particlesArray = [];
-for(let i=0;i<120;i++){
-  particlesArray.push({
+let particles=[];
+for(let i=0;i<150;i++){
+  particles.push({
     x:Math.random()*canvas.width,
     y:Math.random()*canvas.height,
     size:Math.random()*2+1,
-    speed:Math.random()*0.8+0.2
+    speed:Math.random()*1+0.2
   });
 }
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle="#00f7ff";
-  particlesArray.forEach(p=>{
+  particles.forEach(p=>{
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
     ctx.fill();
-    p.y -= p.speed;
-    if(p.y<0){p.y=canvas.height;}
+    p.y-=p.speed;
+    if(p.y<0)p.y=canvas.height;
   });
   requestAnimationFrame(animate);
 }
 animate();
-
-/* DOWNLOAD */
-function startDownload(e){
-  e.preventDefault();
-  document.getElementById("loader").style.display="block";
-
-  setTimeout(()=>{
-    document.getElementById("loader").style.display="none";
-    document.getElementById("popup").style.display="block";
-    window.location.href="SupportGamer.mobileconfig";
-  },1500);
-}
-
-function closePopup(){
-  document.getElementById("popup").style.display="none";
-}
 </script>
 
 </body>
