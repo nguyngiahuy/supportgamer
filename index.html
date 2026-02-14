@@ -1,168 +1,254 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SupportGamer | Gaming Network Optimization</title>
+<title>SupportGamer</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family:'Orbitron',sans-serif;
-  background:#05070d;
-  color:white;
-  overflow-x:hidden;
+  font-family:'Poppins',sans-serif;
+  background:#02050c;
+  color:#fff;
+  overflow:hidden;
 }
 
-/* Animated Background */
-body::before{
-  content:"";
+/* ===== PARTICLE BACKGROUND ===== */
+canvas{
   position:fixed;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle,#00ffc8 0%,transparent 40%);
-  animation:moveBg 10s linear infinite;
-  opacity:0.05;
+  top:0;
+  left:0;
+  z-index:-1;
 }
 
-@keyframes moveBg{
-  0%{transform:translate(0,0);}
-  50%{transform:translate(-25%, -25%);}
-  100%{transform:translate(0,0);}
-}
-
-.container{
-  text-align:center;
-  padding:100px 20px;
-}
-
-/* Neon Card */
+/* ===== CARD ===== */
 .card{
-  background:#0f141f;
-  max-width:600px;
-  margin:auto;
-  padding:50px;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:420px;
+  padding:50px 40px;
   border-radius:25px;
-  box-shadow:
-    0 0 20px #00ffc8,
-    0 0 60px rgba(0,255,200,0.3);
-  animation:fadeIn 1.5s ease;
+  background:#0b1423;
+  text-align:center;
+  box-shadow:0 0 60px #00ffc855;
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* Logo */
-.logo{
-  font-size:70px;
+/* ===== GAMEPAD ===== */
+.gamepad{
+  font-size:50px;
   margin-bottom:20px;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{ text-shadow:0 0 10px #00ffc8; }
+  to{ text-shadow:0 0 25px #00ffc8; }
+}
+
+/* ===== GLITCH TEXT ===== */
+.glitch{
+  font-family:'Orbitron',sans-serif;
+  font-size:32px;
   color:#00ffc8;
-  text-shadow:
-    0 0 10px #00ffc8,
-    0 0 20px #00ffc8,
-    0 0 40px #00ffc8;
-  animation:pulse 2s infinite;
+  position:relative;
+  margin-bottom:5px;
 }
 
-@keyframes pulse{
-  0%{text-shadow:0 0 10px #00ffc8;}
-  50%{text-shadow:0 0 30px #00ffc8;}
-  100%{text-shadow:0 0 10px #00ffc8;}
+.glitch::before,
+.glitch::after{
+  content:"SupportGamer";
+  position:absolute;
+  left:0;
+  width:100%;
+  overflow:hidden;
 }
 
-h1{
-  font-size:36px;
+.glitch::before{
+  animation:glitchTop 2s infinite linear alternate-reverse;
+  color:#ff00ff;
+}
+
+.glitch::after{
+  animation:glitchBottom 2s infinite linear alternate-reverse;
+  color:#00ffff;
+}
+
+@keyframes glitchTop{
+  0%{clip-path:polygon(0 0,100% 0,100% 33%,0 33%); transform:translate(2px,-2px);}
+  100%{clip-path:polygon(0 0,100% 0,100% 33%,0 33%); transform:translate(-2px,2px);}
+}
+
+@keyframes glitchBottom{
+  0%{clip-path:polygon(0 66%,100% 66%,100% 100%,0 100%); transform:translate(-2px,2px);}
+  100%{clip-path:polygon(0 66%,100% 66%,100% 100%,0 100%); transform:translate(2px,-2px);}
+}
+
+.sub{
+  font-size:13px;
   color:#00ffc8;
-  margin-bottom:10px;
+  margin-bottom:20px;
 }
 
-.verified{
-  color:#00ff90;
+.desc{
+  font-size:14px;
+  opacity:0.7;
   margin-bottom:25px;
-  font-size:14px;
-  letter-spacing:1px;
+  line-height:1.6;
 }
 
-/* Features */
-.features{
-  text-align:left;
+/* ===== BUTTON ===== */
+.download-btn{
+  padding:14px 35px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(45deg,#00ffc8,#00aaff);
+  color:#000;
+  font-weight:600;
+  cursor:pointer;
+  font-size:14px;
+  box-shadow:0 0 25px #00ffc8;
+  transition:0.2s;
+}
+
+.download-btn:active{
+  transform:scale(0.9);
+}
+
+/* ===== LOADING ===== */
+.loader{
+  display:none;
   margin-top:20px;
-  font-size:14px;
-  opacity:0.9;
 }
 
-.features li{
-  margin:8px 0;
+.spinner{
+  border:4px solid #111;
+  border-top:4px solid #00ffc8;
+  border-radius:50%;
+  width:30px;
+  height:30px;
+  animation:spin 1s linear infinite;
+  margin:auto;
 }
 
-/* Button */
-.btn{
-  display:inline-block;
-  margin-top:35px;
-  padding:16px 40px;
-  background:#00ffc8;
-  color:black;
-  font-weight:bold;
-  border-radius:14px;
-  text-decoration:none;
-  font-size:18px;
-  transition:0.3s;
-  box-shadow:0 0 20px #00ffc8;
+@keyframes spin{
+  to{transform:rotate(360deg);}
 }
 
-.btn:hover{
-  transform:scale(1.05);
+/* ===== POPUP ===== */
+.popup{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#0b1423;
+  padding:40px;
+  border-radius:20px;
   box-shadow:0 0 40px #00ffc8;
+  display:none;
+  text-align:center;
 }
 
-/* Footer */
-.footer{
-  margin-top:40px;
-  font-size:12px;
-  opacity:0.6;
+.popup h2{
+  font-family:'Orbitron';
+  color:#00ffc8;
+  margin-bottom:15px;
+}
+
+.popup button{
+  margin-top:20px;
+  padding:10px 25px;
+  border:none;
+  border-radius:30px;
+  background:#00ffc8;
+  color:#000;
+  cursor:pointer;
 }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-  <div class="card">
+<canvas id="particles"></canvas>
 
-    <div class="logo">🎮</div>
+<div class="card">
+  <div class="gamepad">🎮</div>
+  <div class="glitch">SupportGamer</div>
+  <div class="sub">✓ PROFILE ĐÃ XÁC MINH</div>
 
-    <h1>SupportGamer</h1>
-    <div class="verified">✔ PROFILE ĐÃ XÁC MINH</div>
+  <div class="desc">
+    Gaming Network Optimization Profile<br>
+    • Tối ưu DNS giảm độ trễ<br>
+    • Ổn định mạng khi chơi game<br>
+    • Không can thiệp phần cứng<br>
+    • Tương thích iOS 14+
+  </div>
 
-    <p>Gaming Network Optimization Profile</p>
+  <button class="download-btn" onclick="startDownload()">
+    ↓ TẢI CẤU HÌNH
+  </button>
 
-    <ul class="features">
-      <li>✔ Tối ưu DNS giảm độ trễ</li>
-      <li>✔ Ổn định mạng khi chơi game</li>
-      <li>✔ Không can thiệp phần cứng</li>
-      <li>✔ Tương thích iOS 14+</li>
-    </ul>
-
-    <a class="btn" href="SupportGamer.mobileconfig">
-      ⬇ TẢI CẤU HÌNH
-    </a>
-
-    <div class="footer">
-      supportgamer.vn • Version 1.0
-    </div>
-
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
   </div>
 </div>
+
+<div class="popup" id="popup">
+  <h2>Tải thành công</h2>
+  <p>File đang được tải xuống thiết bị của bạn.</p>
+  <button onclick="closePopup()">Đóng</button>
+</div>
+
+<script>
+/* ===== PARTICLES ===== */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+
+for(let i=0;i<80;i++){
+  particlesArray.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    size:Math.random()*2+1,
+    speed:Math.random()*1+0.2
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#00ffc8";
+  particlesArray.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+    p.y -= p.speed;
+    if(p.y<0){p.y=canvas.height;}
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* ===== DOWNLOAD EFFECT ===== */
+function startDownload(){
+  document.getElementById("loader").style.display="block";
+
+  setTimeout(()=>{
+    document.getElementById("loader").style.display="none";
+    document.getElementById("popup").style.display="block";
+  },2000);
+}
+
+function closePopup(){
+  document.getElementById("popup").style.display="none";
+}
+</script>
 
 </body>
 </html>
