@@ -1,59 +1,135 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SupportGamer - Tải cấu hình</title>
+<title>SupportGamer | Gaming Network Optimization</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-body{
+*{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Orbitron',sans-serif;
+  background:#05070d;
   color:white;
-  text-align:center;
+  overflow-x:hidden;
+}
+
+/* Animated Background */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,#00ffc8 0%,transparent 40%);
+  animation:moveBg 10s linear infinite;
+  opacity:0.05;
+}
+
+@keyframes moveBg{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(-25%, -25%);}
+  100%{transform:translate(0,0);}
 }
 
 .container{
-  padding:80px 20px;
+  text-align:center;
+  padding:100px 20px;
 }
 
+/* Neon Card */
 .card{
-  background:#111827;
-  max-width:500px;
+  background:#0f141f;
+  max-width:600px;
   margin:auto;
-  padding:40px;
-  border-radius:20px;
-  box-shadow:0 0 40px rgba(0,255,200,0.3);
+  padding:50px;
+  border-radius:25px;
+  box-shadow:
+    0 0 20px #00ffc8,
+    0 0 60px rgba(0,255,200,0.3);
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* Logo */
+.logo{
+  font-size:70px;
+  margin-bottom:20px;
+  color:#00ffc8;
+  text-shadow:
+    0 0 10px #00ffc8,
+    0 0 20px #00ffc8,
+    0 0 40px #00ffc8;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{text-shadow:0 0 10px #00ffc8;}
+  50%{text-shadow:0 0 30px #00ffc8;}
+  100%{text-shadow:0 0 10px #00ffc8;}
 }
 
 h1{
+  font-size:36px;
   color:#00ffc8;
-  font-size:32px;
   margin-bottom:10px;
 }
 
-.badge{
+.verified{
   color:#00ff90;
-  margin-bottom:20px;
+  margin-bottom:25px;
+  font-size:14px;
+  letter-spacing:1px;
 }
 
+/* Features */
+.features{
+  text-align:left;
+  margin-top:20px;
+  font-size:14px;
+  opacity:0.9;
+}
+
+.features li{
+  margin:8px 0;
+}
+
+/* Button */
 .btn{
   display:inline-block;
-  margin-top:25px;
-  padding:15px 30px;
+  margin-top:35px;
+  padding:16px 40px;
   background:#00ffc8;
-  color:#000;
+  color:black;
   font-weight:bold;
-  border-radius:12px;
+  border-radius:14px;
   text-decoration:none;
   font-size:18px;
   transition:0.3s;
+  box-shadow:0 0 20px #00ffc8;
 }
 
 .btn:hover{
-  background:#00d9aa;
-  box-shadow:0 0 20px #00ffc8;
+  transform:scale(1.05);
+  box-shadow:0 0 40px #00ffc8;
+}
+
+/* Footer */
+.footer{
+  margin-top:40px;
+  font-size:12px;
+  opacity:0.6;
 }
 </style>
 </head>
@@ -62,18 +138,29 @@ h1{
 
 <div class="container">
   <div class="card">
-    <h1>🎮 SupportGamer</h1>
-    <div class="badge">✔ Đã xác minh</div>
 
-    <p>Profile tối ưu DNS giúp giảm độ trễ và ổn định mạng khi chơi game.</p>
+    <div class="logo">🎮</div>
+
+    <h1>SupportGamer</h1>
+    <div class="verified">✔ PROFILE ĐÃ XÁC MINH</div>
+
+    <p>Gaming Network Optimization Profile</p>
+
+    <ul class="features">
+      <li>✔ Tối ưu DNS giảm độ trễ</li>
+      <li>✔ Ổn định mạng khi chơi game</li>
+      <li>✔ Không can thiệp phần cứng</li>
+      <li>✔ Tương thích iOS 14+</li>
+    </ul>
 
     <a class="btn" href="SupportGamer.mobileconfig">
-      ⬇ Tải cấu hình
+      ⬇ TẢI CẤU HÌNH
     </a>
 
-    <p style="margin-top:25px;font-size:14px;opacity:0.6">
-      Sau khi tải về → Vào Cài đặt → Profile đã tải về để cài đặt.
-    </p>
+    <div class="footer">
+      supportgamer.vn • Version 1.0
+    </div>
+
   </div>
 </div>
 
